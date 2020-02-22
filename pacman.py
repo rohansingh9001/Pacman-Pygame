@@ -177,6 +177,13 @@ class Pacman():
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
 
+        
+class Ghost():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.coordinate = (x, y)
+
     # Make a function to update pacman
     def update(self):
 
