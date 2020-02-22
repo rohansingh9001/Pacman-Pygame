@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.5'
+__version__ = '0.6'
 
 
 import pygame
@@ -189,6 +189,7 @@ class Pacman():
         if self.direction == (0, -1):
             self.sprite = pacman_u
 
+        pacman.prev = pacman.coordinate
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
 
