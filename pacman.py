@@ -24,6 +24,7 @@ __version__ = '0.1'
 import pygame
 import time
 from mazegenerator import array
+import numpy as np
 
 # initialise pygame
 pygame.init()
@@ -38,7 +39,7 @@ sprite_size = 16  # 1 sprite is 16x16 tile i.e. (16x16)x(16x16) px
 # The map img name
 map_img = 'Maze.png'
 
-map = array(map_img)
+map = np.array(array(map_img))
 map_x = len(map[0])
 map_y = len(map)
 
@@ -97,19 +98,22 @@ playerX = 0
 playerY = 0
 playerMove = 1
 
+
 def create_map():
     # Code 1111: up, right, down, left
     for x in range(1, map_x-1):
         for y in range(1, map_y-1):
-
+            # relative positions
             i = map[y][x]
             u = map[y-1][x]
             d = map[y+1][x]
             l = map[y][x-1]
             r = map[y][x+1]
             if i == 0:
+                paths.append(Path(x, y).coordinate)
                 screen.blit(path_img, coor_to_px((x, y)))
             if i == 1:
+                walls.append(Wall(x, y).coordinate)
                 if u == 1 and d == 1 and r == 1 and l == 1:
                     screen.blit(wall_img, coor_to_px((x, y)))
 
@@ -177,13 +181,6 @@ class Pacman():
         screen.blit(player_img, coor_to_px(self.coordinate))
 
 
-# Create a walls list
-walls = []
-
-# Create a path list
-paths = []
-
-
 # Game Loop
 running = True
 
@@ -199,24 +196,24 @@ while running:
             running = False
 
     if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                pacman.direction = (1,0)
+        if event.key == pygame.K_RIGHT:
+            pacman.direction = (1, 0)
     if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                pacman.direction = (-1,0)
+        if event.key == pygame.K_LEFT:
+            pacman.direction = (-1, 0)
     if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                pacman.direction = (0,-1)
+        if event.key == pygame.K_UP:
+            pacman.direction = (0, -1)
     if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                pacman.direction = (0,1)                                                   
+        if event.key == pygame.K_DOWN:
+            pacman.direction = (0, 1)
 
     if event.type == pygame.KEYUP:
-        playerMove = 0                           
+        playerMove = 0
 
-    create_map()
     pacman.prev = pacman.coordinate
-    pacman.coordinate = get_block(pacman.coordinate,pacman.direction)
+    pacman.coordinate = get_block(pacman.coordinate, pacman.direction)
+    create_map()
     pacman.place()
     pygame.display.update()
-    time.sleep(0.1)
+    time.sleep(0.15)
