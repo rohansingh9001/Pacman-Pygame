@@ -68,7 +68,7 @@ def check_pos(ent1, ent2):
 
 # Title and Icon
 pygame.display.set_caption("PacMan")
-icon = pygame.image.load("pacman_open.png")
+icon = pygame.image.load("pacman_l.png")
 pygame.display.set_icon(icon)
 
 # create the screen
@@ -92,7 +92,11 @@ wall_0100 = pygame.image.load('Wall_0100.png')
 wall_1010 = pygame.image.load('Wall_1010.png')
 wall_0101 = pygame.image.load('Wall_0101.png')
 path_img = pygame.image.load('path.png')
-player_img = pygame.image.load('pacman_open.png')
+player_l = pygame.image.load('pacman_l.png')
+player_r = pygame.image.load('pacman_r.png')
+player_u = pygame.image.load('pacman_u.png')
+player_d = pygame.image.load('pacman_d.png')
+player_c = pygame.image.load('pacman_c.png')
 # Player's initial position in tiles
 playerX = 0
 playerY = 0
