@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.11'
+__version__ = '0.12'
 
 
 import pygame
@@ -210,7 +210,18 @@ class Ghost():
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.coordinate = (x, y)
+        self.coordinate = (x, y)        #(29,27) by default
+        self.left = None
+        self.right = None
+        self.direction = (0,1)
+        
+        
+    def getpos(self):
+        y,x = self.direction()
+
+
+    def update(self):
+
 
 
 # Game Loop
