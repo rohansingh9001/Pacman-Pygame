@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.9'
+__version__ = '0.10'
 
 
 import pygame
@@ -172,14 +172,15 @@ class Pacman():
         self.x = x
         self.y = y
         self.coordinate = (x, y)
-        self.prev = None
+        self.prev1 = None
+        self.prev2 = None
         self.direction = (1, 0)
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
         self.mouth_open = False
-        
 
     # Make a function to update pacman
+
     def update(self):
         if self.mouth_open:
             self.sprite = pacman_c
@@ -193,25 +194,32 @@ class Pacman():
             if self.direction == (0, -1):
                 self.sprite = pacman_u
 
-        self.coordinate = get_block(self.coordinate, self.direction)
-        
-        i, j =  self.next
+        i, j = self.next
+        # Wall Collision logic
         if map[j][i] == 1:
-            self.coordinate = self.prev
+            self.coordinate = self.prev1
+            self.prev1 = self.prev2
+            self.prev2 = None
+
+        self.coordinate = get_block(self.coordinate, self.direction)
 
         self.mouth_open = ~(self.mouth_open)
-        self.prev = self.coordinate
-        self.next = get_block(self.coordinate, self.direction) 
-        screen.blit(self.sprite, coor_to_px(self.coordinate))       
-        
+        self.prev2 = self.prev1
+        self.prev1 = self.coordinate
+
+        self.next = get_block(self.coordinate, self.direction)
+        screen.blit(self.sprite, coor_to_px(self.coordinate))
+
     # def draw(self):
     #     screen.blit(self.sprite, coor_to_px(self.coordinate))
+
 
 class Ghost():
     def __init__(self, x, y):
         self.x = x
         self.y = y
         self.coordinate = (x, y)
+
 
 # Game Loop
 running = True
@@ -228,15 +236,29 @@ while running:
             running = False
 
     if event.type == pygame.KEYDOWN:
+
         if event.key == pygame.K_RIGHT:
             pacman.direction = (1, 0)
-    if event.type == pygame.KEYDOWN:
+
+            i, j = pacman.next
+            # Wall Collision logic
+            if map[j][i] == 1:
+                pacman.coordinate = pacman.prev1
+                pacman.prev1 = pacman.prev2
+                pacman.prev2 = None
+
         if event.key == pygame.K_LEFT:
             pacman.direction = (-1, 0)
-    if event.type == pygame.KEYDOWN:
+            i, j = pacman.next
+            # Wall Collision logic
+            if map[j][i] == 1:
+                pacman.coordinate = pacman.prev1
+                pacman.prev1 = pacman.prev2
+                pacman.prev2 = None
+
         if event.key == pygame.K_UP:
             pacman.direction = (0, -1)
-    if event.type == pygame.KEYDOWN:
+
         if event.key == pygame.K_DOWN:
             pacman.direction = (0, 1)
 
@@ -244,7 +266,7 @@ while running:
         playerMove = 0
 
     create_map()
-    
+
     pacman.update()
 
     pygame.display.update()
