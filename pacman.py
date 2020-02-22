@@ -172,8 +172,7 @@ class Pacman():
         self.x = x
         self.y = y
         self.coordinate = (x, y)
-        self.prev1 = None
-        self.prev2 = None
+        self.prev = None
         self.direction = (1, 0)
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
@@ -194,18 +193,10 @@ class Pacman():
             if self.direction == (0, -1):
                 self.sprite = pacman_u
 
-        i, j = self.next
-        # Wall Collision logic
-        if map[j][i] == 1:
-            self.coordinate = self.prev1
-            self.prev1 = self.prev2
-            self.prev2 = None
-
         self.coordinate = get_block(self.coordinate, self.direction)
 
         self.mouth_open = ~(self.mouth_open)
-        self.prev2 = self.prev1
-        self.prev1 = self.coordinate
+        self.prev = self.coordinate
 
         self.next = get_block(self.coordinate, self.direction)
         screen.blit(self.sprite, coor_to_px(self.coordinate))
@@ -240,21 +231,8 @@ while running:
         if event.key == pygame.K_RIGHT:
             pacman.direction = (1, 0)
 
-            i, j = pacman.next
-            # Wall Collision logic
-            if map[j][i] == 1:
-                pacman.coordinate = pacman.prev1
-                pacman.prev1 = pacman.prev2
-                pacman.prev2 = None
-
         if event.key == pygame.K_LEFT:
             pacman.direction = (-1, 0)
-            i, j = pacman.next
-            # Wall Collision logic
-            if map[j][i] == 1:
-                pacman.coordinate = pacman.prev1
-                pacman.prev1 = pacman.prev2
-                pacman.prev2 = None
 
         if event.key == pygame.K_UP:
             pacman.direction = (0, -1)
