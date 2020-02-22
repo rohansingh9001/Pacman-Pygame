@@ -36,6 +36,12 @@ def coor_to_px(coordinates):
     return (x * tile_size, y * tile_size)
 
 
+# Check if two entities are on the same tile.
+
+def check_pos(ent1, ent2):
+    pass
+
+
 # Title and Icon
 pygame.display.set_caption("PacMan")
 icon = pygame.image.load("pacman_open.png")
@@ -146,6 +152,13 @@ class Pacman():
 
     def place(self):
         screen.blit(player_img, coor_to_px(self.coordinate))
+
+
+# Create a walls list
+walls = []
+
+# Create a path list
+paths = []
 
 
 # Game Loop
