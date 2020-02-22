@@ -177,7 +177,7 @@ class Pacman():
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
         self.mouth_open = False
-
+ # fuck 
         
 class Ghost():
     def __init__(self, x, y):
