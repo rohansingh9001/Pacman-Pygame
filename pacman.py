@@ -62,8 +62,10 @@ def coor_to_px(coordinates):
 
 # Check if two entities are on the same tile.
 
-def check_pos(ent1, ent2):
-    pass
+def check_pos(coor1, coor2):
+    x1, y1 = coor1
+    x2, y2 = coor2
+    return x1 == x2 and y1 == y2
 
 
 # Title and Icon
@@ -175,13 +177,19 @@ class Pacman():
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
 
-    # The player placement function
-
-    def place(self):
-        screen.blit(player_img, coor_to_px(self.coordinate))
-
+    # Make a function to update pacman
     def update(self):
-        pass
+
+        if self.direction == (1, 0):
+            self.sprite = pacman_l
+        if self.direction == (-1, 0):
+            self.sprite = pacman_r
+        if self.direction == (0, 1):
+            self.sprite = pacman_d
+        if self.direction == (0, -1):
+            self.sprite = pacman_u
+
+        screen.blit(self.sprite, coor_to_px(self.coordinate))
 
 
 # Game Loop
@@ -217,6 +225,6 @@ while running:
     pacman.prev = pacman.coordinate
     pacman.coordinate = get_block(pacman.coordinate, pacman.direction)
     create_map()
-    pacman.place()
+    pacman.update()
     pygame.display.update()
-    time.sleep(0.15)
+    time.sleep(0.10)
