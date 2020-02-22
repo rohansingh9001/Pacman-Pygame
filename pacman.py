@@ -4,14 +4,21 @@ Refrences -
     2. https://gameinternals.com/understanding-pac-man-ghost-behavior
 
 This is an attempt to recreate pacman in pygame.
+
 AUTHORS - 
     1. Rohan Singh 
     2. Maruf Hussain
     3. Tarun Singh Tomar
 
 This version of pacman will be used to implement
-a genetic algori 
+a genetic algorithm which will be able to play
+pacman.
+
+A project by Robotics Club IIT Jodhpur.
+
 '''
+
+__version__ = '0.1'
 
 
 import pygame
