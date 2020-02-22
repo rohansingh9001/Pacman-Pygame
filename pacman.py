@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.7'
+__version__ = '0.8'
 
 
 import pygame
@@ -177,13 +177,7 @@ class Pacman():
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
         self.mouth_open = False
- # fuck 
         
-class Ghost():
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.coordinate = (x, y)
 
     # Make a function to update pacman
     def update(self):
@@ -201,8 +195,14 @@ class Ghost():
 
         self.mouth_open = ~(self.mouth_open)
         self.prev = self.coordinate
+        self.coordinate = get_block(self.coordinate, self.direction)
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
+class Ghost():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.coordinate = (x, y)
 
 # Game Loop
 running = True
@@ -220,6 +220,9 @@ while running:
 
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RIGHT:
+            (i,j) =  pacman.coordinate
+            if map[i][j] == 1:
+                pass
             pacman.direction = (1, 0)
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
@@ -234,8 +237,6 @@ while running:
     if event.type == pygame.KEYUP:
         playerMove = 0
 
-    pacman.prev = pacman.coordinate
-    pacman.coordinate = get_block(pacman.coordinate, pacman.direction)
     create_map()
     pacman.update()
     pygame.display.update()
