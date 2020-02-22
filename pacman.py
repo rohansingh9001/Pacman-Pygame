@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.4'
+__version__ = '0.5'
 
 
 import pygame
@@ -92,11 +92,11 @@ wall_0100 = pygame.image.load('Wall_0100.png')
 wall_1010 = pygame.image.load('Wall_1010.png')
 wall_0101 = pygame.image.load('Wall_0101.png')
 path_img = pygame.image.load('path.png')
-player_l = pygame.image.load('pacman_l.png')
-player_r = pygame.image.load('pacman_r.png')
-player_u = pygame.image.load('pacman_u.png')
-player_d = pygame.image.load('pacman_d.png')
-player_c = pygame.image.load('pacman_c.png')
+pacman_l = pygame.image.load('pacman_l.png')
+pacman_r = pygame.image.load('pacman_r.png')
+pacman_u = pygame.image.load('pacman_u.png')
+pacman_d = pygame.image.load('pacman_d.png')
+pacman_c = pygame.image.load('pacman_c.png')
 
 
 def create_map():
@@ -181,8 +181,10 @@ class Pacman():
         screen.blit(player_img, coor_to_px(self.coordinate))
 
     def update(self):
+        pass
 
-        # Game Loop
+
+# Game Loop
 running = True
 
 # Initialise characters
