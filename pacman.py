@@ -214,14 +214,14 @@ class Ghost():
         self.left = None
         self.right = None
         self.direction = (0,1)
-        
+
         
     def getpos(self):
         y,x = self.direction()
 
 
     def update(self):
-
+        pass
 
 
 # Game Loop
