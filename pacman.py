@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.10'
+__version__ = '0.11'
 
 
 import pygame
@@ -172,7 +172,6 @@ class Pacman():
         self.x = x
         self.y = y
         self.coordinate = (x, y)
-        self.prev = None
         self.direction = (1, 0)
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
@@ -181,6 +180,8 @@ class Pacman():
     # Make a function to update pacman
 
     def update(self):
+
+        # Pacman Sprite Update
         if self.mouth_open:
             self.sprite = pacman_c
         else:
@@ -192,17 +193,17 @@ class Pacman():
                 self.sprite = pacman_d
             if self.direction == (0, -1):
                 self.sprite = pacman_u
-
-        self.coordinate = get_block(self.coordinate, self.direction)
-
         self.mouth_open = ~(self.mouth_open)
-        self.prev = self.coordinate
+
+        i, j = self.next
+        if map[j][i] == 0:
+            self.coordinate = get_block(self.coordinate, self.direction)
 
         self.next = get_block(self.coordinate, self.direction)
-        screen.blit(self.sprite, coor_to_px(self.coordinate))
+        # screen.blit(self.sprite, coor_to_px(self.coordinate))
 
-    # def draw(self):
-    #     screen.blit(self.sprite, coor_to_px(self.coordinate))
+    def draw(self):
+        screen.blit(self.sprite, coor_to_px(self.coordinate))
 
 
 class Ghost():
@@ -217,8 +218,10 @@ running = True
 
 # Initialise characters
 pacman = Pacman(2, 2)
+pac_upd = 0
 
 while running:
+
     # RGB = Red, Green, Blue
     screen.fill((0, 0, 0))
 
@@ -229,23 +232,39 @@ while running:
     if event.type == pygame.KEYDOWN:
 
         if event.key == pygame.K_RIGHT:
-            pacman.direction = (1, 0)
+            i, j = pacman.coordinate
+            i += 1
+            if map[j][i] == 0:
+                pacman.direction = (1, 0)
 
         if event.key == pygame.K_LEFT:
-            pacman.direction = (-1, 0)
+            i, j = pacman.coordinate
+            i -= 1
+            if map[j][i] == 0:
+                pacman.direction = (-1, 0)
 
         if event.key == pygame.K_UP:
-            pacman.direction = (0, -1)
+            i, j = pacman.coordinate
+            j -= 1
+            if map[j][i] == 0:
+                pacman.direction = (0, -1)
 
         if event.key == pygame.K_DOWN:
-            pacman.direction = (0, 1)
+            i, j = pacman.coordinate
+            j += 1
+            if map[j][i] == 0:
+                pacman.direction = (0, 1)
 
     if event.type == pygame.KEYUP:
         playerMove = 0
 
     create_map()
 
-    pacman.update()
+    if pac_upd == 5:
+        pacman.update()
+        pac_upd = 0
+    pac_upd += 1
+    pacman.draw()
 
     pygame.display.update()
-    time.sleep(0.1)
+    # time.sleep(0.01)
