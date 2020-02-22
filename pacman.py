@@ -1,6 +1,22 @@
+'''
+Refrences - 
+    1. https://www.gamasutra.com/view/feature/132330/the_pacman_dossier.php?page=1
+    2. https://gameinternals.com/understanding-pac-man-ghost-behavior
+
+This is an attempt to recreate pacman in pygame.
+AUTHORS - 
+    1. Rohan Singh 
+    2. Maruf Hussain
+    3. Tarun Singh Tomar
+
+This version of pacman will be used to implement
+a genetic algori 
+'''
+
+
 import pygame
 import time
-from mazagenerator import array
+from mazegenerator import array
 
 # initialise pygame
 pygame.init()
@@ -34,6 +50,12 @@ def get_block(current, direction):
 def coor_to_px(coordinates):
     x, y = coordinates
     return (x * tile_size, y * tile_size)
+
+
+# Check if two entities are on the same tile.
+
+def check_pos(ent1, ent2):
+    pass
 
 
 # Title and Icon
@@ -146,6 +168,13 @@ class Pacman():
 
     def place(self):
         screen.blit(player_img, coor_to_px(self.coordinate))
+
+
+# Create a walls list
+walls = []
+
+# Create a path list
+paths = []
 
 
 # Game Loop
