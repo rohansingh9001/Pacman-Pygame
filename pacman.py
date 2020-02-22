@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.1'
+__version__ = '0.4'
 
 
 import pygame
@@ -97,10 +97,6 @@ player_r = pygame.image.load('pacman_r.png')
 player_u = pygame.image.load('pacman_u.png')
 player_d = pygame.image.load('pacman_d.png')
 player_c = pygame.image.load('pacman_c.png')
-# Player's initial position in tiles
-playerX = 0
-playerY = 0
-playerMove = 1
 
 
 def create_map():
@@ -114,10 +110,9 @@ def create_map():
             l = map[y][x-1]
             r = map[y][x+1]
             if i == 0:
-                paths.append(Path(x, y).coordinate)
                 screen.blit(path_img, coor_to_px((x, y)))
+
             if i == 1:
-                walls.append(Wall(x, y).coordinate)
                 if u == 1 and d == 1 and r == 1 and l == 1:
                     screen.blit(wall_img, coor_to_px((x, y)))
 
@@ -178,14 +173,16 @@ class Pacman():
         self.prev = None
         self.direction = (1, 0)
         self.next = get_block(self.coordinate, self.direction)
+        self.sprite = pacman_l
 
     # The player placement function
 
     def place(self):
         screen.blit(player_img, coor_to_px(self.coordinate))
 
+    def update(self):
 
-# Game Loop
+        # Game Loop
 running = True
 
 # Initialise characters
