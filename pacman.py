@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.6'
+__version__ = '0.7'
 
 
 import pygame
@@ -176,6 +176,7 @@ class Pacman():
         self.direction = (1, 0)
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
+        self.mouth_open = False
 
         
 class Ghost():
@@ -186,17 +187,20 @@ class Ghost():
 
     # Make a function to update pacman
     def update(self):
+        if self.mouth_open:
+            self.sprite = pacman_c
+        else:
+            if self.direction == (1, 0):
+                self.sprite = pacman_l
+            if self.direction == (-1, 0):
+                self.sprite = pacman_r
+            if self.direction == (0, 1):
+                self.sprite = pacman_d
+            if self.direction == (0, -1):
+                self.sprite = pacman_u
 
-        if self.direction == (1, 0):
-            self.sprite = pacman_l
-        if self.direction == (-1, 0):
-            self.sprite = pacman_r
-        if self.direction == (0, 1):
-            self.sprite = pacman_d
-        if self.direction == (0, -1):
-            self.sprite = pacman_u
-
-        pacman.prev = pacman.coordinate
+        self.mouth_open = ~(self.mouth_open)
+        self.prev = self.coordinate
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
 
