@@ -46,27 +46,27 @@ screen = pygame.display.set_mode((tile_size * map_x, tile_size * map_y))
 
 # Load images
 wall_img = pygame.image.load('wall.png')
-wall_1111 = pygame.image.load('wall_1111.png')
-wall_1110 = pygame.image.load('wall_1110.png')
-wall_1101 = pygame.image.load('wall_1101.png')
-wall_1011 = pygame.image.load('wall_1011.png')
-wall_0111 = pygame.image.load('wall_0111.png')
-wall_1100 = pygame.image.load('wall_1100.png')
-wall_1001 = pygame.image.load('wall_1001.png')
-wall_0011 = pygame.image.load('wall_0011.png')
-wall_0110 = pygame.image.load('wall_0110.png')
-wall_1000 = pygame.image.load('wall_1000.png')
-wall_0001 = pygame.image.load('wall_0001.png')
-wall_0010 = pygame.image.load('wall_0010.png')
-wall_0100 = pygame.image.load('wall_0100.png')
-wall_1010 = pygame.image.load('wall_1010.png')
-wall_0101 = pygame.image.load('wall_0101.png')
+wall_1111 = pygame.image.load('Wall_1111.png')
+wall_1110 = pygame.image.load('Wall_1110.png')
+wall_1101 = pygame.image.load('Wall_1101.png')
+wall_1011 = pygame.image.load('Wall_1011.png')
+wall_0111 = pygame.image.load('Wall_0111.png')
+wall_1100 = pygame.image.load('Wall_1100.png')
+wall_1001 = pygame.image.load('Wall_1001.png')
+wall_0011 = pygame.image.load('Wall_0011.png')
+wall_0110 = pygame.image.load('Wall_0110.png')
+wall_1000 = pygame.image.load('Wall_1000.png')
+wall_0001 = pygame.image.load('Wall_0001.png')
+wall_0010 = pygame.image.load('Wall_0010.png')
+wall_0100 = pygame.image.load('Wall_0100.png')
+wall_1010 = pygame.image.load('Wall_1010.png')
+wall_0101 = pygame.image.load('Wall_0101.png')
 path_img = pygame.image.load('path.png')
 player_img = pygame.image.load('pacman_open.png')
 # Player's initial position in tiles
 playerX = 0
 playerY = 0
-
+playerMove = 1
 
 def create_map():
     # Code 1111: up, right, down, left
@@ -150,16 +150,37 @@ class Pacman():
 
 # Game Loop
 running = True
+
+# Initialise characters
+pacman = Pacman(2, 2)
+
 while running:
     # RGB = Red, Green, Blue
     screen.fill((0, 0, 0))
 
-    pacman = Pacman(2, 2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
+    if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                pacman.direction = (1,0)
+    if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                pacman.direction = (-1,0)
+    if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                pacman.direction = (0,-1)
+    if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                pacman.direction = (0,1)                                                   
+
+    if event.type == pygame.KEYUP:
+        playerMove = 0                           
+
     create_map()
+    pacman.prev = pacman.coordinate
+    pacman.coordinate = get_block(pacman.coordinate,pacman.direction)
     pacman.place()
     pygame.display.update()
     time.sleep(0.1)
