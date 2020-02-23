@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.22'
+__version__ = '0.23'
 
 
 import pygame
@@ -449,6 +449,7 @@ class Clyde(Ghost):
     def update(self):
         # Sprite Update
         if self.mode == 'chase':
+            self.find_target()
             if self.phase_1:
                 if self.direction == (1, 0):
                     self.sprite = clyde_1_r
@@ -541,7 +542,10 @@ class Clyde(Ghost):
                     self.direction = change_direction(self.direction)
 
     def find_target(self):
-        self.target = pacman.coordinate
+        if distance(self.coordinate,pacman.coordinate)>=8:
+            self.target = pacman.coordinate
+        else:
+            self.target = self.home    
 
 
 # Game Loop
@@ -559,7 +563,7 @@ clyde = Clyde(23, 22)
 clyde.set_home((24, 26))
 
 entities = [pacman, blinky, inky, pinky, clyde]
-# entities = [pacman, pinky]
+# entities = [pacman, clyde]
 
 while running:
 
