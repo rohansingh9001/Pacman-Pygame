@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.16'
+__version__ = '0.17'
 
 
 import pygame
@@ -95,7 +95,7 @@ class Ghost():
         self.target = pacman.coordinate
         self.sprite = blinky_1_l
         self.phase_1 = False
-        self.mode = "chase"
+        self.mode = 'chase'
         self.home = (2, 3)
 
     def draw(self):
@@ -157,6 +157,15 @@ class Ghost():
             self.coordinate = get_block(self.coordinate, self.direction)
 
 
+    def choose_target_tile(self):
+        if self.mode == 'chase':
+            self.target = pacman.coordinate
+        if self.mode == 'scatter':
+            self.target = self.home
+
+    def set_home(self, coor_tuple):
+        self.home = coor_tuple
+
 
 class Blinky(Ghost):
     pass
@@ -189,12 +198,9 @@ entities = [pacman, ghost1, ghost2, ghost3, ghost4]
 
 while running:
 
-    if pacman.coordinate == ghost1.coordinate or pacman.coordinate == ghost2.coordinate or pacman.coordinate == ghost3.coordinate or pacman.coordinate == ghost4.coordinate:
-        break
-
     for ghost in entities[1:]:
         if ghost.target == ghost.coordinate:
-            ghost.target = pacman.coordinate
+            ghost.choose_target_tile()
 
     for entity in entities:
         if entity.coordinate == (23, 13):
@@ -242,19 +248,14 @@ while running:
     create_maze()
 
     if pac_upd == 5:
-        pacman.update()
-        ghost1.update()
-        ghost2.update()
-        ghost3.update()
-        ghost4.update()
+        for entity in entities:
+            entity.update()
         pac_upd = 0
 
     pac_upd += 1
-    pacman.draw()
-    ghost1.draw()
-    ghost2.draw()
-    ghost3.draw()
-    ghost4.draw()
+
+    for entity in entities:
+        entity.draw()
 
     pygame.display.update()
     #time.sleep(0.01)
