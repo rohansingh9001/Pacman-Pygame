@@ -203,7 +203,7 @@ class Ghost():
                 self.choose_target_tile()
                 self.threshold += get_threshold(self.counter)
             else:
-                print("This code was accessed")
+                #print("This code was accessed")
                 self.threshold += get_threshold(self.counter)
                 if self.mode == 'chase':
                     self.mode = 'scatter'
@@ -229,11 +229,202 @@ class Ghost():
 
 
 class Blinky(Ghost):
+    def update(self):
+        # Sprite Update
+        if self.mode == 'chase':
+            self.find_target()
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_1_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_1_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_1_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_1_u
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_2_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_2_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_2_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_2_u
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        if self.mode == 'scatter':
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        self.counter += 1
+
+        if self.counter == self.threshold:
+            if get_threshold(self.counter) == 0:
+                self.mode = 'chase'
+                self.choose_target_tile()
+                self.threshold += get_threshold(self.counter)
+            else:
+                print("This code was accessed")
+                self.threshold += get_threshold(self.counter)
+                if self.mode == 'chase':
+                    self.mode = 'scatter'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif self.mode == 'scatter':
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif get_threshold(self.counter) == 0:
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+
     def find_target(self):
         self.target = pacman.coordinate
 
 
 class Bashful(Ghost):
+    def update(self):
+        # Sprite Update
+        if self.mode == 'chase':
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_1_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_1_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_1_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_1_u
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_2_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_2_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_2_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_2_u
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        if self.mode == 'scatter':
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        self.counter += 1
+
+        if self.counter == self.threshold:
+            if get_threshold(self.counter) == 0:
+                self.mode = 'chase'
+                self.choose_target_tile()
+                self.threshold += get_threshold(self.counter)
+            else:
+                print("This code was accessed")
+                self.threshold += get_threshold(self.counter)
+                if self.mode == 'chase':
+                    self.mode = 'scatter'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif self.mode == 'scatter':
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif get_threshold(self.counter) == 0:
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+
     def find_target(self):
         self.target = pacman.coordinate
 
@@ -242,7 +433,6 @@ class Pinky(Ghost):
     def update(self):
         # Sprite Update
         if self.mode == 'chase':
-            self.find_target()
             if self.phase_1:
                 if self.direction == (1, 0):
                     self.sprite = blinky_1_r
@@ -348,6 +538,101 @@ class Pinky(Ghost):
 
 
 class Clyde(Ghost):
+    def update(self):
+        # Sprite Update
+        if self.mode == 'chase':
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_1_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_1_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_1_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_1_u
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_2_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_2_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_2_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_2_u
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        if self.mode == 'scatter':
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        self.counter += 1
+
+        if self.counter == self.threshold:
+            if get_threshold(self.counter) == 0:
+                self.mode = 'chase'
+                self.choose_target_tile()
+                self.threshold += get_threshold(self.counter)
+            else:
+                print("This code was accessed")
+                self.threshold += get_threshold(self.counter)
+                if self.mode == 'chase':
+                    self.mode = 'scatter'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif self.mode == 'scatter':
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif get_threshold(self.counter) == 0:
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+
     def find_target(self):
         self.target = pacman.coordinate
 
