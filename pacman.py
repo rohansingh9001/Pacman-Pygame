@@ -155,9 +155,7 @@ class Ghost():
                         get_block(self.coordinate, pos), self.target)
                     self.direction = pos
             self.coordinate = get_block(self.coordinate, self.direction)
-        # else:
-        #     a, b = self.direction
-        #     self.direction = (-a, -b)
+
 
 
 class Blinky(Ghost):
@@ -259,7 +257,7 @@ while running:
     ghost4.draw()
 
     pygame.display.update()
-    # time.sleep(0.01)
+    #time.sleep(0.01)
 
     if pacman.coordinate == ghost1.coordinate or pacman.coordinate == ghost2.coordinate or pacman.coordinate == ghost3.coordinate or pacman.coordinate == ghost4.coordinate:
         running = False

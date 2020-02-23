@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 from mazegenerator import array
+import math
 
 wall_img = pygame.image.load('./assets/sprites/tiles/wall.png')
 
@@ -174,3 +175,10 @@ def create_maze():
                     screen.blit(wall_1011, coor_to_px((x, y)))
                 if u == 0 and d == 0 and r == 0 and l == 1:
                     screen.blit(wall_1110, coor_to_px((x, y)))
+
+def set_thresold(inp):
+    if inp>90:
+        return 0
+    else:
+        return math.floor(60*(math.exp(((-1)/50)*inp)))
+           
