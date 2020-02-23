@@ -27,6 +27,8 @@ from utils import *
 
 # Create the
 # The wall class
+
+
 class Wall():
     def __init__(self, x, y):
         self.x = x
@@ -90,7 +92,8 @@ class Ghost():
         self.right = None
         self.direction = (0, 1)
         self.target = (0, 0)
-        self.sprite = pacman_l
+        self.sprite = blinky_1_l
+        self.phase_1 = True
 
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
@@ -111,10 +114,32 @@ class Ghost():
         i, j = get_block(self.coordinate, self.right)
         if maze[j][i] == 0:
             poss.append(self.right)
-        #print(poss)
+        # print(poss)
         return poss
 
     def update(self):
+        # Pacman Sprite Update
+        if self.phase_1:
+            if self.direction == (1, 0):
+                self.sprite = blinky_1_r
+            if self.direction == (-1, 0):
+                self.sprite = blinky_1_l
+            if self.direction == (0, 1):
+                self.sprite = blinky_1_d
+            if self.direction == (0, -1):
+                self.sprite = blinky_1_u
+        else:
+            if self.direction == (1, 0):
+                self.sprite = blinky_2_r
+            if self.direction == (-1, 0):
+                self.sprite = blinky_2_l
+            if self.direction == (0, 1):
+                self.sprite = blinky_2_d
+            if self.direction == (0, -1):
+                self.sprite = blinky_2_u
+        self.phase_1 = ~(self.phase_1)
+        print(self.phase_1)
+
         self.getpos()
         poss = self.type_node()
         if(len(poss) == 1):
@@ -123,13 +148,15 @@ class Ghost():
         elif (len(poss) >= 2):
             dist = 100000000
             for pos in poss:
-                if dist> distance(get_block(self.coordinate,pos),pacman.coordinate):
-                    dist = distance(get_block(self.coordinate,pos),pacman.coordinate)
+                if dist > distance(get_block(self.coordinate, pos), pacman.coordinate):
+                    dist = distance(
+                        get_block(self.coordinate, pos), pacman.coordinate)
                     self.direction = pos
             self.coordinate = get_block(self.coordinate, self.direction)
         else:
-            a,b = self.direction
-            self.direction = (-a,-b)
+            a, b = self.direction
+            self.direction = (-a, -b)
+
 
 # Game Loop
 running = True
@@ -189,6 +216,6 @@ while running:
     pac_upd += 1
     pacman.draw()
     ghost.draw()
-    
+
     pygame.display.update()
-    time.sleep(0.01)
+    # time.sleep(0.01)
