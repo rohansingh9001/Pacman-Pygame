@@ -83,6 +83,7 @@ class Pacman():
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
 
+# THe ghost class
 class Ghost():
     def __init__(self, x, y):
         self.x = x
@@ -159,6 +160,22 @@ class Ghost():
         #     self.direction = (-a, -b)
 
 
+class Blinky(Ghost):
+    pass
+
+
+class Bashful(Ghost):
+    pass
+
+
+class Pinky(Ghost):
+    pass
+
+
+class Clyde(Ghost):
+    pass
+
+
 # Game Loop
 running = True
 
@@ -182,10 +199,10 @@ while running:
             ghost.target = pacman.coordinate
 
     for entity in entities:
-        if entity.coordinate == (23,13):
-            entity.coordinate = (4,13)
-        elif entity.coordinate == (3,13):
-            entity.coordinate = (22,13)    
+        if entity.coordinate == (23, 13):
+            entity.coordinate = (4, 13)
+        elif entity.coordinate == (3, 13):
+            entity.coordinate = (22, 13)
 
     print(pacman.coordinate)
     # RGB = Red, Green, Blue
