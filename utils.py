@@ -72,6 +72,11 @@ clyde_2_r = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_r.png')
 clyde_2_u = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_u.png')
 clyde_2_d = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_d.png')
 
+scared_1_b = pygame.image.load('./assets/sprites/ghosts/clyde/scared_1_b.png')
+scared_1_w = pygame.image.load('./assets/sprites/ghosts/clyde/scared_1_w.png')
+scared_1_b = pygame.image.load('./assets/sprites/ghosts/clyde/scared_1_b.png')
+scared_1_w = pygame.image.load('./assets/sprites/ghosts/clyde/scared_1_w.png')
+
 map_img = './assets/maps/original.png'
 maze = np.array(array(map_img))
 
