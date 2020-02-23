@@ -242,4 +242,7 @@ while running:
     ghost4.draw()
 
     pygame.display.update()
-    time.sleep(0.02)
+    # time.sleep(0.01)
+
+    if pacman.coordinate == ghost1.coordinate or pacman.coordinate == ghost2.coordinate or pacman.coordinate == ghost3.coordinate or pacman.coordinate == ghost4.coordinate:
+        running = False
