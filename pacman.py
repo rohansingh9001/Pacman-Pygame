@@ -82,7 +82,9 @@ class Pacman():
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
-#Ghost Class
+# Ghost Class
+
+
 class Ghost():
     def __init__(self, x, y):
         self.x = x
@@ -122,7 +124,7 @@ class Ghost():
         return poss
 
     def update(self):
-        # Pacman Sprite Update
+        # Sprite Update
         if self.mode == 'chase':
             if self.phase_1:
                 if self.direction == (1, 0):
@@ -223,7 +225,8 @@ class Ghost():
             self.target = self.home
 
     def set_home(self, coor_tuple):
-        self.home = coor_tuple 
+        self.home = coor_tuple
+
 
 class Blinky(Ghost):
     def find_target(self):
@@ -234,15 +237,115 @@ class Bashful(Ghost):
     def find_target(self):
         self.target = pacman.coordinate
 
+
 class Pinky(Ghost):
+    def update(self):
+        # Sprite Update
+        if self.mode == 'chase':
+            self.find_target()
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_1_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_1_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_1_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_1_u
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = blinky_2_r
+                if self.direction == (-1, 0):
+                    self.sprite = blinky_2_l
+                if self.direction == (0, 1):
+                    self.sprite = blinky_2_d
+                if self.direction == (0, -1):
+                    self.sprite = blinky_2_u
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        if self.mode == 'scatter':
+            if self.phase_1:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            else:
+                if self.direction == (1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (-1, 0):
+                    self.sprite = scared_1_b
+                if self.direction == (0, 1):
+                    self.sprite = scared_1_b
+                if self.direction == (0, -1):
+                    self.sprite = scared_1_b
+            self.phase_1 = ~(self.phase_1)
+
+            self.getpos()
+            poss = self.type_node()
+            if(len(poss) == 1):
+                self.coordinate = get_block(self.coordinate, poss[0])
+                self.direction = poss[0]
+            elif (len(poss) >= 2):
+                dist = 100000000
+                for pos in poss:
+                    if dist > distance(get_block(self.coordinate, pos), self.target):
+                        dist = distance(
+                            get_block(self.coordinate, pos), self.target)
+                        self.direction = pos
+                self.coordinate = get_block(self.coordinate, self.direction)
+
+        self.counter += 1
+
+        if self.counter == self.threshold:
+            if get_threshold(self.counter) == 0:
+                self.mode = 'chase'
+                self.choose_target_tile()
+                self.threshold += get_threshold(self.counter)
+            else:
+                print("This code was accessed")
+                self.threshold += get_threshold(self.counter)
+                if self.mode == 'chase':
+                    self.mode = 'scatter'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif self.mode == 'scatter':
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+                elif get_threshold(self.counter) == 0:
+                    self.mode = 'chase'
+                    self.choose_target_tile()
+                    self.direction = change_direction(self.direction)
+        
+
     def find_target(self):
-        i,j = get_block(pacman.coordinate,pacman.direction)
+        i, j = get_block(pacman.coordinate, pacman.direction)
         self.target = pacman.coordinate
         a = 0
-        while maze[j][i] == 0 and a<4:
-            self.target = get_block(self.target,pacman.direction)
-            i,j = get_block(self.target,self.direction)
-            a+=1
+        while maze[j][i] == 0 and a < 4:
+            self.target = get_block(self.target, pacman.direction)
+            i, j = get_block(self.target, self.direction)
+            print(maze[j][i],end="")  
+            a += 1  
+
 
 class Clyde(Ghost):
     def find_target(self):
@@ -264,6 +367,7 @@ clyde = Clyde(23, 22)
 clyde.set_home((24, 26))
 
 entities = [pacman, blinky, bashful, pinky, clyde]
+# entities = [pacman, pinky]
 
 while running:
 
@@ -319,7 +423,7 @@ while running:
 
     create_maze()
 
-    if pac_upd == 5:
+    if pac_upd == 10:
         for entity in entities:
             entity.update()
             for entity in entities[1:]:
@@ -331,9 +435,9 @@ while running:
 
     for entity in entities:
         entity.draw()
-    print("Pinky",pinky.target,pacman.coordinate)
-    print("Blinky",blinky.target,pacman.coordinate)
-    print("Bashful",bashful.target,pacman.coordinate)
-    print("Clyde",clyde.target,pacman.coordinate)
+    # print("Pinky", pinky.target, pacman.coordinate)
+    # print("Blinky",blinky.target,pacman.coordinate)
+    # print("Bashful",bashful.target,pacman.coordinate)
+    # print("Clyde",clyde.target,pacman.coordinate)
     pygame.display.update()
     time.sleep(0.01)
