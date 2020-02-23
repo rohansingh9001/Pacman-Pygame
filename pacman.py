@@ -93,7 +93,7 @@ class Ghost():
         self.direction = (0, 1)
         self.target = (0, 0)
         self.sprite = blinky_1_l
-        self.phase_1 = True
+        self.phase_1 = False
 
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
@@ -138,7 +138,6 @@ class Ghost():
             if self.direction == (0, -1):
                 self.sprite = blinky_2_u
         self.phase_1 = ~(self.phase_1)
-        print(self.phase_1)
 
         self.getpos()
         poss = self.type_node()
@@ -218,4 +217,4 @@ while running:
     ghost.draw()
 
     pygame.display.update()
-    # time.sleep(0.01)
+    time.sleep(0.01)
