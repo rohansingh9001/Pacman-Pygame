@@ -42,8 +42,7 @@ class Pacman():
         self.next = get_block(self.coordinate, self.direction)
         self.sprite = pacman_l
         self.mouth_open = False
-        self.tmpdirection = (1,0)
-
+        self.tmpdirection = (1, 0)
 
     # Make a function to update pacman
 
@@ -63,12 +62,11 @@ class Pacman():
                 self.sprite = pacman_u
         self.mouth_open = ~(self.mouth_open)
 
-
         i, j = self.next
         if maze[j][i] == 0:
             self.coordinate = get_block(self.coordinate, self.direction)
         else:
-            i,j = get_block(self.coordinate, self.tmpdirection)
+            i, j = get_block(self.coordinate, self.tmpdirection)
             if maze[j][i] == 0:
                 self.direction = self.tmpdirection
                 self.coordinate = get_block(self.coordinate, self.direction)
@@ -156,7 +154,6 @@ class Ghost():
                             get_block(self.coordinate, pos), self.target)
                         self.direction = pos
                 self.coordinate = get_block(self.coordinate, self.direction)
-                
 
         if self.mode == 'scatter':
             if self.phase_1:
@@ -333,8 +330,8 @@ class inky(Ghost):
 
     def find_target(self):
         vector = get_vector(pacman.coordinate, blinky.coordinate)
-        pac_ahead = get_block(pacman.coordinate,pacman.direction)
-        pac_ahead = get_block(pac_ahead,pacman.direction)
+        pac_ahead = get_block(pacman.coordinate, pacman.direction)
+        pac_ahead = get_block(pac_ahead, pacman.direction)
         self.target = get_block(pac_ahead, vector)
 
 
@@ -443,10 +440,10 @@ class Pinky(Ghost):
         #     self.target = get_block(self.target, pacman.direction)
         #     i, j = get_block(self.target, self.direction)
         #     a += 1
-        self.target = get_block(pacman.coordinate,pacman.direction)
-        self.target = get_block(self.target,pacman.direction)
-        self.target = get_block(self.target,pacman.direction)
-        self.target = get_block(self.target,pacman.direction)
+        self.target = get_block(pacman.coordinate, pacman.direction)
+        self.target = get_block(self.target, pacman.direction)
+        self.target = get_block(self.target, pacman.direction)
+        self.target = get_block(self.target, pacman.direction)
 
 
 # ------------------------------------------------------- Clyde Class --------------------------------------------------
