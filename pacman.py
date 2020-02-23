@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.19'
+__version__ = '0.20'
 
 
 import pygame
@@ -232,7 +232,6 @@ class Blinky(Ghost):
     def update(self):
         # Sprite Update
         if self.mode == 'chase':
-            self.find_target()
             if self.phase_1:
                 if self.direction == (1, 0):
                     self.sprite = blinky_1_r
@@ -310,7 +309,6 @@ class Blinky(Ghost):
                 self.choose_target_tile()
                 self.threshold += get_threshold(self.counter)
             else:
-                print("This code was accessed")
                 self.threshold += get_threshold(self.counter)
                 if self.mode == 'chase':
                     self.mode = 'scatter'
@@ -410,7 +408,6 @@ class Bashful(Ghost):
                 self.choose_target_tile()
                 self.threshold += get_threshold(self.counter)
             else:
-                print("This code was accessed")
                 self.threshold += get_threshold(self.counter)
                 if self.mode == 'chase':
                     self.mode = 'scatter'
@@ -433,6 +430,7 @@ class Pinky(Ghost):
     def update(self):
         # Sprite Update
         if self.mode == 'chase':
+            self.find_target()
             if self.phase_1:
                 if self.direction == (1, 0):
                     self.sprite = blinky_1_r
@@ -510,7 +508,6 @@ class Pinky(Ghost):
                 self.choose_target_tile()
                 self.threshold += get_threshold(self.counter)
             else:
-                print("This code was accessed")
                 self.threshold += get_threshold(self.counter)
                 if self.mode == 'chase':
                     self.mode = 'scatter'
@@ -532,8 +529,7 @@ class Pinky(Ghost):
         a = 0
         while maze[j][i] == 0 and a < 4:
             self.target = get_block(self.target, pacman.direction)
-            i, j = get_block(self.target, self.direction)
-            print(maze[j][i],end="")  
+            i, j = get_block(self.target, self.direction)  
             a += 1  
 
 
@@ -618,7 +614,6 @@ class Clyde(Ghost):
                 self.choose_target_tile()
                 self.threshold += get_threshold(self.counter)
             else:
-                print("This code was accessed")
                 self.threshold += get_threshold(self.counter)
                 if self.mode == 'chase':
                     self.mode = 'scatter'
