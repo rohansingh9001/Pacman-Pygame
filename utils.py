@@ -128,6 +128,11 @@ def distance(cord1, cord2):
     return (((i-x)**2)+((j-y)**2))**(0.5)
 
 
+def change_direction(direction):
+    x, y = direction
+    return (-1*x, -1*y)
+
+
 def create_maze():
     # Code 1111: up, right, down, left
     for x in range(1, maze_x-1):
@@ -176,9 +181,9 @@ def create_maze():
                 if u == 0 and d == 0 and r == 0 and l == 1:
                     screen.blit(wall_1110, coor_to_px((x, y)))
 
-def set_thresold(inp):
-    if inp>90:
+
+def get_threshold(inp):
+    if inp > 200:
         return 0
     else:
-        return math.floor(60*(math.exp(((-1)/50)*inp)))
-           
+        return math.floor(60*(math.exp(((-1)/100)*inp)))
