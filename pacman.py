@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.13'
+__version__ = '0.14'
 
 
 import pygame
@@ -210,46 +210,44 @@ class Ghost():
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.coordinate = (x, y)        #(29,27) by default
+        self.coordinate = (x, y)  # (29,27) by default
         self.left = None
         self.right = None
-        self.direction = (0,1)
-        self.target = (0,0)
+        self.direction = (0, 1)
+        self.target = (0, 0)
         self.sprite = pacman_l
-
 
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
     def getpos(self):
-        x,y = self.direction
-        self.left = (y,x)
+        x, y = self.direction
+        self.left = (y, x)
         self.right = (-1*y, -1*x)
 
-    def type_node(self):            
+    def type_node(self):
         poss = []
-        i,j = get_block(self.coordinate, self.direction)
+        i, j = get_block(self.coordinate, self.direction)
         if map[j][i] == 0:
             poss.append(self.direction)
-        i,j = get_block(self.coordinate, self.left)
+        i, j = get_block(self.coordinate, self.left)
         if map[j][i] == 0:
             poss.append(self.left)
-        i,j = get_block(self.coordinate, self.right)
+        i, j = get_block(self.coordinate, self.right)
         if map[j][i] == 0:
             poss.append(self.right)
         print(poss)
         return poss
 
-
     def update(self):
         self.getpos()
         poss = self.type_node()
-        if( len(poss)== 1):
+        if(len(poss) == 1):
             self.coordinate = get_block(self.coordinate, poss[0])
             self.direction = poss[0]
-        elif ( len(poss)==2 ):
-            self.coordinate = get_block(self.coordinate, poss[1]) 
-            self.direction = poss[1]   
+        elif (len(poss) == 2):
+            self.coordinate = get_block(self.coordinate, poss[1])
+            self.direction = poss[1]
         self.draw()
 
 
@@ -259,7 +257,7 @@ running = True
 # Initialise characters
 pacman = Pacman(2, 2)
 pac_upd = 0
-ghost = Ghost(5,2)
+ghost = Ghost(5, 2)
 
 while running:
 
