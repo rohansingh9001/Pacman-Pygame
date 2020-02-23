@@ -47,22 +47,22 @@ pinky_2_r = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_r.png')
 pinky_2_u = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_u.png')
 pinky_2_d = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_d.png')
 
-bashful_1_l = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_1_l.png')
-bashful_1_r = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_1_r.png')
-bashful_1_u = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_1_u.png')
-bashful_1_d = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_1_d.png')
-bashful_2_l = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_2_l.png')
-bashful_2_r = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_2_r.png')
-bashful_2_u = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_2_u.png')
-bashful_2_d = pygame.image.load(
-    './assets/sprites/ghosts/bashful/bashful_2_d.png')
+inky_1_l = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_1_l.png')
+inky_1_r = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_1_r.png')
+inky_1_u = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_1_u.png')
+inky_1_d = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_1_d.png')
+inky_2_l = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_2_l.png')
+inky_2_r = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_2_r.png')
+inky_2_u = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_2_u.png')
+inky_2_d = pygame.image.load(
+    './assets/sprites/ghosts/inky/inky_2_d.png')
 
 clyde_1_l = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_1_l.png')
 clyde_1_r = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_1_r.png')
@@ -92,7 +92,7 @@ pygame.init()
 
 # Title and Icon
 pygame.display.set_caption("PacMan")
-icon = pygame.image.load("pacman_l.png")
+icon = pygame.image.load("./assets/sprites/pacman/pacman_l.png")
 pygame.display.set_icon(icon)
 
 # create the screen
@@ -188,9 +188,7 @@ def get_threshold(inp):
     else:
         return math.floor(60*(math.exp(((-1)/200)*inp)))
 
+
 def relu(coord):
-    x,y = coord
-    return (max(x,0),max(0,y))
-
-
-   
+    x, y = coord
+    return (max(x, 0), max(0, y))
