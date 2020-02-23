@@ -187,3 +187,7 @@ def get_threshold(inp):
         return 0
     else:
         return math.floor(60*(math.exp(((-1)/200)*inp)))
+
+def small_relu(coord):
+    x,y = coord
+    return (max(x,0),max(0,y))
