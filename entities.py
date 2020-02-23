@@ -333,7 +333,9 @@ class inky(Ghost):
 
     def find_target(self):
         vector = get_vector(pacman.coordinate, blinky.coordinate)
-        self.target = get_block(pacman.coordinate, vector)
+        pac_ahead = get_block(pacman.coordinate,pacman.direction)
+        pac_ahead = get_block(pac_ahead,pacman.direction)
+        self.target = get_block(pac_ahead, vector)
 
 
 # ------------------------------------------------------- Pinky Class --------------------------------------------------
