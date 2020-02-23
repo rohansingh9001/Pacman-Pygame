@@ -214,14 +214,40 @@ class Ghost():
         self.left = None
         self.right = None
         self.direction = (0,1)
+        self.target = (0,0)
+        self.sprite = pacman_l
 
-        
+
+    def draw(self):
+        screen.blit(self.sprite, coor_to_px(self.coordinate))
+
     def getpos(self):
-        y,x = self.direction()
+        x,y = self.direction
+        self.left = (x,y)
+        self.right = (-1*x, -1*y)
+
+    def type_node(self):            #
+        poss = []
+        i,j = get_block(self.coordinate, self.direction)
+        if map[j][i] == 0:
+            poss.append(self.direction)
+        i,j = get_block(self.coordinate, self.left)
+        if map[j][i] == 0:
+            poss.append(self.left)
+        i,j = get_block(self.coordinate, self.right)
+        if map[j][i] == 0:
+            poss.append(self.right)
+        print(poss)
+        return poss
 
 
     def update(self):
-        pass
+        self.getpos()
+        poss = self.type_node()
+        if( len(poss)== 1):
+            self.coordinate = get_block(self.coordinate, poss[0])
+            self.direction = poss[0]
+        self.draw()
 
 
 # Game Loop
@@ -230,6 +256,7 @@ running = True
 # Initialise characters
 pacman = Pacman(2, 2)
 pac_upd = 0
+ghost = Ghost(3,3)
 
 while running:
 
@@ -276,6 +303,7 @@ while running:
         pac_upd = 0
     pac_upd += 1
     pacman.draw()
-
+    ghost.draw()
+    ghost.update()
     pygame.display.update()
     # time.sleep(0.01)
