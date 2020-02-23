@@ -186,4 +186,4 @@ def get_threshold(inp):
     if inp > 200:
         return 0
     else:
-        return math.floor(60*(math.exp(((-1)/100)*inp)))
+        return math.floor(60*(math.exp(((-1)/200)*inp)))
