@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.15'
+__version__ = '0.16'
 
 
 import pygame
@@ -111,7 +111,7 @@ class Ghost():
         i, j = get_block(self.coordinate, self.right)
         if maze[j][i] == 0:
             poss.append(self.right)
-        print(poss)
+        #print(poss)
         return poss
 
     def update(self):
@@ -135,11 +135,14 @@ class Ghost():
 running = True
 
 # Initialise characters
-pacman = Pacman(2, 2)
+pacman = Pacman(13, 19)
 pac_upd = 0
-ghost = Ghost(5, 2)
+ghost = Ghost(13, 11)
 
 while running:
+
+    if pacman.coordinate == ghost.coordinate:
+        break
 
     # RGB = Red, Green, Blue
     screen.fill((0, 0, 0))
@@ -188,4 +191,4 @@ while running:
     ghost.draw()
     
     pygame.display.update()
-    # time.sleep(0.01)
+    time.sleep(0.01)
