@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.20'
+__version__ = '0.21'
 
 
 import pygame
@@ -43,6 +43,7 @@ class Path():
         self.coordinate = (x, y)
 
 
+# ------------------------------------------------------- Pacman Class --------------------------------------------------
 class Pacman():
 
     def __init__(self, x, y):
@@ -82,9 +83,9 @@ class Pacman():
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
+
+# ------------------------------------------------------- Ghost Classes --------------------------------------------------
 # Ghost Class
-
-
 class Ghost():
     def __init__(self, x, y):
         self.x = x
@@ -227,128 +228,38 @@ class Ghost():
     def set_home(self, coor_tuple):
         self.home = coor_tuple
 
-
-class Blinky(Ghost):
-    def update(self):
-        # Sprite Update
-        if self.mode == 'chase':
-            if self.phase_1:
-                if self.direction == (1, 0):
-                    self.sprite = blinky_1_r
-                if self.direction == (-1, 0):
-                    self.sprite = blinky_1_l
-                if self.direction == (0, 1):
-                    self.sprite = blinky_1_d
-                if self.direction == (0, -1):
-                    self.sprite = blinky_1_u
-            else:
-                if self.direction == (1, 0):
-                    self.sprite = blinky_2_r
-                if self.direction == (-1, 0):
-                    self.sprite = blinky_2_l
-                if self.direction == (0, 1):
-                    self.sprite = blinky_2_d
-                if self.direction == (0, -1):
-                    self.sprite = blinky_2_u
-            self.phase_1 = ~(self.phase_1)
-
-            self.getpos()
-            poss = self.type_node()
-            if(len(poss) == 1):
-                self.coordinate = get_block(self.coordinate, poss[0])
-                self.direction = poss[0]
-            elif (len(poss) >= 2):
-                dist = 100000000
-                for pos in poss:
-                    if dist > distance(get_block(self.coordinate, pos), self.target):
-                        dist = distance(
-                            get_block(self.coordinate, pos), self.target)
-                        self.direction = pos
-                self.coordinate = get_block(self.coordinate, self.direction)
-
-        if self.mode == 'scatter':
-            if self.phase_1:
-                if self.direction == (1, 0):
-                    self.sprite = scared_1_b
-                if self.direction == (-1, 0):
-                    self.sprite = scared_1_b
-                if self.direction == (0, 1):
-                    self.sprite = scared_1_b
-                if self.direction == (0, -1):
-                    self.sprite = scared_1_b
-            else:
-                if self.direction == (1, 0):
-                    self.sprite = scared_1_b
-                if self.direction == (-1, 0):
-                    self.sprite = scared_1_b
-                if self.direction == (0, 1):
-                    self.sprite = scared_1_b
-                if self.direction == (0, -1):
-                    self.sprite = scared_1_b
-            self.phase_1 = ~(self.phase_1)
-
-            self.getpos()
-            poss = self.type_node()
-            if(len(poss) == 1):
-                self.coordinate = get_block(self.coordinate, poss[0])
-                self.direction = poss[0]
-            elif (len(poss) >= 2):
-                dist = 100000000
-                for pos in poss:
-                    if dist > distance(get_block(self.coordinate, pos), self.target):
-                        dist = distance(
-                            get_block(self.coordinate, pos), self.target)
-                        self.direction = pos
-                self.coordinate = get_block(self.coordinate, self.direction)
-
-        self.counter += 1
-
-        if self.counter == self.threshold:
-            if get_threshold(self.counter) == 0:
-                self.mode = 'chase'
-                self.choose_target_tile()
-                self.threshold += get_threshold(self.counter)
-            else:
-                self.threshold += get_threshold(self.counter)
-                if self.mode == 'chase':
-                    self.mode = 'scatter'
-                    self.choose_target_tile()
-                    self.direction = change_direction(self.direction)
-                elif self.mode == 'scatter':
-                    self.mode = 'chase'
-                    self.choose_target_tile()
-                    self.direction = change_direction(self.direction)
-                elif get_threshold(self.counter) == 0:
-                    self.mode = 'chase'
-                    self.choose_target_tile()
-                    self.direction = change_direction(self.direction)
-
     def find_target(self):
         self.target = pacman.coordinate
 
 
+# ------------------------------------------------------- Blinky Class --------------------------------------------------
+class Blinky(Ghost):
+    pass
+
+
+# ------------------------------------------------------- Bashful Class --------------------------------------------------
 class Bashful(Ghost):
     def update(self):
         # Sprite Update
         if self.mode == 'chase':
             if self.phase_1:
                 if self.direction == (1, 0):
-                    self.sprite = blinky_1_r
+                    self.sprite = bashful_1_r
                 if self.direction == (-1, 0):
-                    self.sprite = blinky_1_l
+                    self.sprite = bashful_1_l
                 if self.direction == (0, 1):
-                    self.sprite = blinky_1_d
+                    self.sprite = bashful_1_d
                 if self.direction == (0, -1):
-                    self.sprite = blinky_1_u
+                    self.sprite = bashful_1_u
             else:
                 if self.direction == (1, 0):
-                    self.sprite = blinky_2_r
+                    self.sprite = bashful_2_r
                 if self.direction == (-1, 0):
-                    self.sprite = blinky_2_l
+                    self.sprite = bashful_2_l
                 if self.direction == (0, 1):
-                    self.sprite = blinky_2_d
+                    self.sprite = bashful_2_d
                 if self.direction == (0, -1):
-                    self.sprite = blinky_2_u
+                    self.sprite = bashful_2_u
             self.phase_1 = ~(self.phase_1)
 
             self.getpos()
@@ -426,6 +337,7 @@ class Bashful(Ghost):
         self.target = pacman.coordinate
 
 
+# ------------------------------------------------------- Pinky Class --------------------------------------------------
 class Pinky(Ghost):
     def update(self):
         # Sprite Update
@@ -433,22 +345,22 @@ class Pinky(Ghost):
             self.find_target()
             if self.phase_1:
                 if self.direction == (1, 0):
-                    self.sprite = blinky_1_r
+                    self.sprite = pinky_1_r
                 if self.direction == (-1, 0):
-                    self.sprite = blinky_1_l
+                    self.sprite = pinky_1_l
                 if self.direction == (0, 1):
-                    self.sprite = blinky_1_d
+                    self.sprite = pinky_1_d
                 if self.direction == (0, -1):
-                    self.sprite = blinky_1_u
+                    self.sprite = pinky_1_u
             else:
                 if self.direction == (1, 0):
-                    self.sprite = blinky_2_r
+                    self.sprite = pinky_2_r
                 if self.direction == (-1, 0):
-                    self.sprite = blinky_2_l
+                    self.sprite = pinky_2_l
                 if self.direction == (0, 1):
-                    self.sprite = blinky_2_d
+                    self.sprite = pinky_2_d
                 if self.direction == (0, -1):
-                    self.sprite = blinky_2_u
+                    self.sprite = pinky_2_u
             self.phase_1 = ~(self.phase_1)
 
             self.getpos()
@@ -521,7 +433,6 @@ class Pinky(Ghost):
                     self.mode = 'chase'
                     self.choose_target_tile()
                     self.direction = change_direction(self.direction)
-        
 
     def find_target(self):
         i, j = get_block(pacman.coordinate, pacman.direction)
@@ -529,32 +440,33 @@ class Pinky(Ghost):
         a = 0
         while maze[j][i] == 0 and a < 4:
             self.target = get_block(self.target, pacman.direction)
-            i, j = get_block(self.target, self.direction)  
-            a += 1  
+            i, j = get_block(self.target, self.direction)
+            a += 1
 
 
+# ------------------------------------------------------- Clyde Class --------------------------------------------------
 class Clyde(Ghost):
     def update(self):
         # Sprite Update
         if self.mode == 'chase':
             if self.phase_1:
                 if self.direction == (1, 0):
-                    self.sprite = blinky_1_r
+                    self.sprite = clyde_1_r
                 if self.direction == (-1, 0):
-                    self.sprite = blinky_1_l
+                    self.sprite = clyde_1_l
                 if self.direction == (0, 1):
-                    self.sprite = blinky_1_d
+                    self.sprite = clyde_1_d
                 if self.direction == (0, -1):
-                    self.sprite = blinky_1_u
+                    self.sprite = clyde_1_u
             else:
                 if self.direction == (1, 0):
-                    self.sprite = blinky_2_r
+                    self.sprite = clyde_2_r
                 if self.direction == (-1, 0):
-                    self.sprite = blinky_2_l
+                    self.sprite = clyde_2_l
                 if self.direction == (0, 1):
-                    self.sprite = blinky_2_d
+                    self.sprite = clyde_2_d
                 if self.direction == (0, -1):
-                    self.sprite = blinky_2_u
+                    self.sprite = clyde_2_u
             self.phase_1 = ~(self.phase_1)
 
             self.getpos()
