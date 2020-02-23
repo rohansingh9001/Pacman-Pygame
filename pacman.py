@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.12'
+__version__ = '0.13'
 
 
 import pygame
@@ -223,10 +223,10 @@ class Ghost():
 
     def getpos(self):
         x,y = self.direction
-        self.left = (x,y)
-        self.right = (-1*x, -1*y)
+        self.left = (y,x)
+        self.right = (-1*y, -1*x)
 
-    def type_node(self):            #
+    def type_node(self):            
         poss = []
         i,j = get_block(self.coordinate, self.direction)
         if map[j][i] == 0:
@@ -247,6 +247,9 @@ class Ghost():
         if( len(poss)== 1):
             self.coordinate = get_block(self.coordinate, poss[0])
             self.direction = poss[0]
+        elif ( len(poss)==2 ):
+            self.coordinate = get_block(self.coordinate, poss[1]) 
+            self.direction = poss[1]   
         self.draw()
 
 
@@ -256,7 +259,7 @@ running = True
 # Initialise characters
 pacman = Pacman(2, 2)
 pac_upd = 0
-ghost = Ghost(3,3)
+ghost = Ghost(5,2)
 
 while running:
 
@@ -303,7 +306,7 @@ while running:
         pac_upd = 0
     pac_upd += 1
     pacman.draw()
-    ghost.draw()
+    # ghost.draw()
     ghost.update()
     pygame.display.update()
     # time.sleep(0.01)
