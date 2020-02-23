@@ -72,6 +72,11 @@ def check_pos(coor1, coor2):
     x2, y2 = coor2
     return x1 == x2 and y1 == y2
 
+def distance(cord1,cord2):
+    i,j = cord1
+    x,y = cord2
+    return (((i-x)**2)+((j-y)**2))**(0.5)
+
 def create_maze():
     # Code 1111: up, right, down, left
     for x in range(1, maze_x-1):

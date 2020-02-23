@@ -120,11 +120,16 @@ class Ghost():
         if(len(poss) == 1):
             self.coordinate = get_block(self.coordinate, poss[0])
             self.direction = poss[0]
-        elif (len(poss) == 2):
-            self.coordinate = get_block(self.coordinate, poss[1])
-            self.direction = poss[1]
-        self.draw()
-
+        elif (len(poss) >= 2):
+            dist = 100000000
+            for pos in poss:
+                if dist> distance(get_block(self.coordinate,pos),pacman.coordinate):
+                    dist = distance(get_block(self.coordinate,pos),pacman.coordinate)
+                    self.direction = pos
+            self.coordinate = get_block(self.coordinate, self.direction)
+        else:
+            a,b = self.direction
+            self.direction = (-a,-b)
 
 # Game Loop
 running = True
@@ -176,10 +181,11 @@ while running:
 
     if pac_upd == 5:
         pacman.update()
+        ghost.update()
         pac_upd = 0
     pac_upd += 1
     pacman.draw()
-    # ghost.draw()
-    ghost.update()
+    ghost.draw()
+    
     pygame.display.update()
     # time.sleep(0.01)
