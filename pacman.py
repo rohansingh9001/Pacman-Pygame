@@ -237,9 +237,10 @@ class Blinky(Ghost):
     pass
 
 
-# ------------------------------------------------------- inky Class --------------------------------------------------
+# ------------------------------------------------------- Inky Class --------------------------------------------------
 class inky(Ghost):
     def update(self):
+        self.find_target()
         # Sprite Update
         if self.mode == 'chase':
             if self.phase_1:
@@ -334,7 +335,8 @@ class inky(Ghost):
                     self.direction = change_direction(self.direction)
 
     def find_target(self):
-        self.target = pacman.coordinate
+        vector = get_vector(pacman.coordinate, blinky.coordinate)
+        self.target = get_block(pacman.coordinate, vector)
 
 
 # ------------------------------------------------------- Pinky Class --------------------------------------------------

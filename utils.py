@@ -108,6 +108,13 @@ def get_block(current, direction):
     return (curr_x + dir_x, curr_y + dir_y)
 
 
+def get_vector(current, direction):
+    curr_x, curr_y = current
+    dir_x, dir_y = direction
+
+    return (curr_x - dir_x, curr_y - dir_y)
+
+
 # Create a function to convert the coordinates to px
 def coor_to_px(coordinates):
     x, y = coordinates
