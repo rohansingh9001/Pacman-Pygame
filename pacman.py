@@ -91,9 +91,11 @@ class Ghost():
         self.left = None
         self.right = None
         self.direction = (0, 1)
-        self.target = (0, 0)
+        self.target = pacman.coordinate
         self.sprite = blinky_1_l
         self.phase_1 = False
+        self.mode = "chase"
+        self.home = (2, 3)
 
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
@@ -147,14 +149,14 @@ class Ghost():
         elif (len(poss) >= 2):
             dist = 100000000
             for pos in poss:
-                if dist > distance(get_block(self.coordinate, pos), pacman.coordinate):
+                if dist > distance(get_block(self.coordinate, pos), self.target):
                     dist = distance(
-                        get_block(self.coordinate, pos), pacman.coordinate)
+                        get_block(self.coordinate, pos), self.target)
                     self.direction = pos
             self.coordinate = get_block(self.coordinate, self.direction)
-        else:
-            a, b = self.direction
-            self.direction = (-a, -b)
+        # else:
+        #     a, b = self.direction
+        #     self.direction = (-a, -b)
 
 
 # Game Loop
@@ -163,13 +165,29 @@ running = True
 # Initialise characters
 pacman = Pacman(13, 19)
 pac_upd = 0
-ghost = Ghost(13, 11)
+ghost1 = Ghost(13, 11)
+ghost2 = Ghost(13, 7)
+ghost3 = Ghost(3, 22)
+ghost4 = Ghost(23, 22)
+
+entities = [pacman, ghost1, ghost2, ghost3, ghost4]
 
 while running:
 
-    if pacman.coordinate == ghost.coordinate:
+    if pacman.coordinate == ghost1.coordinate or pacman.coordinate == ghost2.coordinate or pacman.coordinate == ghost3.coordinate or pacman.coordinate == ghost4.coordinate:
         break
 
+    for ghost in entities[1:]:
+        if ghost.target == ghost.coordinate:
+            ghost.target = pacman.coordinate
+
+    for entity in entities:
+        if entity.coordinate == (23,13):
+            entity.coordinate = (4,13)
+        elif entity.coordinate == (3,13):
+            entity.coordinate = (22,13)    
+
+    print(pacman.coordinate)
     # RGB = Red, Green, Blue
     screen.fill((0, 0, 0))
 
@@ -210,11 +228,18 @@ while running:
 
     if pac_upd == 5:
         pacman.update()
-        ghost.update()
+        ghost1.update()
+        ghost2.update()
+        ghost3.update()
+        ghost4.update()
         pac_upd = 0
+
     pac_upd += 1
     pacman.draw()
-    ghost.draw()
+    ghost1.draw()
+    ghost2.draw()
+    ghost3.draw()
+    ghost4.draw()
 
     pygame.display.update()
-    time.sleep(0.01)
+    time.sleep(0.02)
