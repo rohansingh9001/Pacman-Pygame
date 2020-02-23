@@ -29,7 +29,7 @@ pacman_d = pygame.image.load('./assets/sprites/pacman/pacman_d.png')
 pacman_c = pygame.image.load('./assets/sprites/pacman/pacman_c.png')
 
 
-map_img = './assets/maps/maze.png'
+map_img = './assets/maps/original.png'
 maze = np.array(array(map_img))
 
 maze_x = len(maze[0])
@@ -72,10 +72,12 @@ def check_pos(coor1, coor2):
     x2, y2 = coor2
     return x1 == x2 and y1 == y2
 
-def distance(cord1,cord2):
-    i,j = cord1
-    x,y = cord2
+
+def distance(cord1, cord2):
+    i, j = cord1
+    x, y = cord2
     return (((i-x)**2)+((j-y)**2))**(0.5)
+
 
 def create_maze():
     # Code 1111: up, right, down, left
@@ -123,4 +125,4 @@ def create_maze():
                 if u == 0 and d == 0 and r == 1 and l == 0:
                     screen.blit(wall_1011, coor_to_px((x, y)))
                 if u == 0 and d == 0 and r == 0 and l == 1:
-                    screen.blit(wall_1110, coor_to_px((x, y)))    
+                    screen.blit(wall_1110, coor_to_px((x, y)))

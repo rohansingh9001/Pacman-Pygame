@@ -2,7 +2,7 @@ from PIL import Image
 
 # put imgname equal to the image to be solved
 
-imgname = "Maze.png"
+imgname = './assets/maps/original.png'
 
 
 def array(imgname):
@@ -40,4 +40,4 @@ def array(imgname):
     # 3 = start node
     # 4 = end node
 if __name__ == "__main__":
-    array(imgname)
+    print(array(imgname))
