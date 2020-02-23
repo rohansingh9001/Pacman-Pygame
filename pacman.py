@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.18'
+__version__ = '0.19'
 
 
 import pygame
@@ -82,8 +82,7 @@ class Pacman():
     def draw(self):
         screen.blit(self.sprite, coor_to_px(self.coordinate))
 
-
-# THe ghost class
+#Ghost Class
 class Ghost():
     def __init__(self, x, y):
         self.x = x
@@ -219,28 +218,35 @@ class Ghost():
 
     def choose_target_tile(self):
         if self.mode == 'chase':
-            self.target = pacman.coordinate
+            self.find_target()
         if self.mode == 'scatter':
             self.target = self.home
 
     def set_home(self, coor_tuple):
-        self.home = coor_tuple
-
+        self.home = coor_tuple 
 
 class Blinky(Ghost):
-    pass
+    def find_target(self):
+        self.target = pacman.coordinate
 
 
 class Bashful(Ghost):
-    pass
-
+    def find_target(self):
+        self.target = pacman.coordinate
 
 class Pinky(Ghost):
-    pass
-
+    def find_target(self):
+        i,j = get_block(pacman.coordinate,pacman.direction)
+        self.target = pacman.coordinate
+        a = 0
+        while maze[j][i] == 0 and a<4:
+            self.target = get_block(self.target,pacman.direction)
+            i,j = get_block(self.target,self.direction)
+            a+=1
 
 class Clyde(Ghost):
-    pass
+    def find_target(self):
+        self.target = pacman.coordinate
 
 
 # Game Loop
@@ -325,7 +331,9 @@ while running:
 
     for entity in entities:
         entity.draw()
-
+    print("Pinky",pinky.target,pacman.coordinate)
+    print("Blinky",blinky.target,pacman.coordinate)
+    print("Bashful",bashful.target,pacman.coordinate)
+    print("Clyde",clyde.target,pacman.coordinate)
     pygame.display.update()
-    print(blinky.mode, blinky.threshold, blinky.counter)
     time.sleep(0.01)
