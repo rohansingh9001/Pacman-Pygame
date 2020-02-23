@@ -28,6 +28,49 @@ pacman_u = pygame.image.load('./assets/sprites/pacman/pacman_u.png')
 pacman_d = pygame.image.load('./assets/sprites/pacman/pacman_d.png')
 pacman_c = pygame.image.load('./assets/sprites/pacman/pacman_c.png')
 
+blinky_1_l = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_1_l.png')
+blinky_1_r = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_1_r.png')
+blinky_1_u = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_1_u.png')
+blinky_1_d = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_1_d.png')
+blinky_2_l = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_2_l.png')
+blinky_2_r = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_2_r.png')
+blinky_2_u = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_2_u.png')
+blinky_2_d = pygame.image.load('./assets/sprites/ghosts/blinky/blinky_2_d.png')
+
+pinky_1_l = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_1_l.png')
+pinky_1_r = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_1_r.png')
+pinky_1_u = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_1_u.png')
+pinky_1_d = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_1_d.png')
+pinky_2_l = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_l.png')
+pinky_2_r = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_r.png')
+pinky_2_u = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_u.png')
+pinky_2_d = pygame.image.load('./assets/sprites/ghosts/pinky/pinky_2_d.png')
+
+bashful_1_l = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_1_l.png')
+bashful_1_r = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_1_r.png')
+bashful_1_u = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_1_u.png')
+bashful_1_d = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_1_d.png')
+bashful_2_l = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_2_l.png')
+bashful_2_r = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_2_r.png')
+bashful_2_u = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_2_u.png')
+bashful_2_d = pygame.image.load(
+    './assets/sprites/ghosts/bashful/bashful_2_d.png')
+
+clyde_1_l = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_1_l.png')
+clyde_1_r = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_1_r.png')
+clyde_1_u = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_1_u.png')
+clyde_1_d = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_1_d.png')
+clyde_2_l = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_l.png')
+clyde_2_r = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_r.png')
+clyde_2_u = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_u.png')
+clyde_2_d = pygame.image.load('./assets/sprites/ghosts/clyde/clyde_2_d.png')
 
 map_img = './assets/maps/original.png'
 maze = np.array(array(map_img))
