@@ -549,5 +549,10 @@ pinky.set_home((2, 26))
 clyde = Clyde(23, 22)
 clyde.set_home((24, 26))
 
-entities = [pacman, blinky, inky, pinky, clyde]
-# entities = [pacman, clyde]
+entities = [
+    pacman,
+    blinky,
+    inky,
+    pinky,
+    clyde
+]

@@ -18,7 +18,7 @@ A project by Robotics Club IIT Jodhpur.
 
 '''
 
-__version__ = '0.23'
+__version__ = '0.25'
 
 
 import pygame
