@@ -60,24 +60,32 @@ while running:
             i += 1
             if maze[j][i] == 0:
                 pacman.direction = (1, 0)
+            else:
+                pacman.tmpdirection = (1, 0)
 
         if event.key == pygame.K_LEFT:
             i, j = pacman.coordinate
             i -= 1
             if maze[j][i] == 0:
                 pacman.direction = (-1, 0)
+            else:
+                pacman.tmpdirection = (-1, 0)
 
         if event.key == pygame.K_UP:
             i, j = pacman.coordinate
             j -= 1
             if maze[j][i] == 0:
                 pacman.direction = (0, -1)
+            else:
+                pacman.tmpdirection = (0, -1)
 
         if event.key == pygame.K_DOWN:
             i, j = pacman.coordinate
             j += 1
             if maze[j][i] == 0:
                 pacman.direction = (0, 1)
+            else:
+                pacman.tmpdirection = (0, 1)
 
     if event.type == pygame.KEYUP:
         playerMove = 0
@@ -100,5 +108,6 @@ while running:
     # print("Blinky",blinky.target,pacman.coordinate)
     # print("inky",inky.target,pacman.coordinate)
     # print("Clyde",clyde.target,pacman.coordinate)
+    # print( pacman.direction, pacman.tmpdirection)
     pygame.display.update()
     # time.sleep(0.01)
